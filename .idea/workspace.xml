@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73bcc013-2ba5-46d7-9464-1785f960eedf" name="Changes" comment="Starting Test">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/1_data_preparation/standardization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/2_training_classical/train_and_save_classical_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/2_training_classical/train_and_save_jax_implementations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/3_training_neural_networks/train_lstm_flax.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/4_inference/predict_with_lstm.py" afterDir="false" />
+    <list default="true" id="73bcc013-2ba5-46d7-9464-1785f960eedf" name="Changes" comment="Adding some rough basics">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/3_training_neural_networks/train_lstm_flax.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/3_training_neural_networks/train_lstm_flax.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/4_inference/predict_with_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/4_inference/predict_with_lstm.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +48,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.predict_with_lstm.executor&quot;: &quot;Run&quot;,
     &quot;Python.standardization (1).executor&quot;: &quot;Run&quot;,
     &quot;Python.standardization.executor&quot;: &quot;Run&quot;,
     &quot;Python.train_and_save_jax_implementations.executor&quot;: &quot;Run&quot;,
@@ -77,7 +72,7 @@
       <recent name="C:\Users\kleme\PycharmProjects\JAX_OSUPR_Projekt\scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_lstm_flax">
+  <component name="RunManager" selected="Python.predict_with_lstm">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="JAX_OSUPR_Projekt" />
       <option name="ENV_FILES" value="" />
@@ -93,6 +88,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="C:\Users\kleme\PycharmProjects\JAX_OSUPR_Projekt\main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="predict_with_lstm" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="JAX_OSUPR_Projekt" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/4_inference" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/4_inference/predict_with_lstm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,6 +213,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.predict_with_lstm" />
         <item itemvalue="Python.train_lstm_flax" />
         <item itemvalue="Python.train_and_save_jax_implementations" />
         <item itemvalue="Python.standardization" />
@@ -220,7 +239,8 @@
       <workItem from="1751787738343" duration="40000" />
       <workItem from="1751787791743" duration="19370000" />
       <workItem from="1751818490003" duration="3336000" />
-      <workItem from="1751915708462" duration="1161000" />
+      <workItem from="1751915708462" duration="2645000" />
+      <workItem from="1751996824664" duration="321000" />
     </task>
     <task id="LOCAL-00001" summary="Starting Test">
       <option name="closed" value="true" />
@@ -230,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751796616803</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Adding some rough basics">
+      <option name="closed" value="true" />
+      <created>1751916907424</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751916907424</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,13 +266,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Starting Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting Test" />
+    <MESSAGE value="Adding some rough basics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding some rough basics" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$standardization__1_.coverage" NAME="standardization Coverage Results" MODIFIED="1751814941866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$main.coverage" NAME="main Coverage Results" MODIFIED="1751796907860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/app" />
-    <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$train_lstm_flax.coverage" NAME="train_lstm_flax Coverage Results" MODIFIED="1751816918702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts/3_training_neural_networks" />
+    <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$train_lstm_flax.coverage" NAME="train_lstm_flax Coverage Results" MODIFIED="1751917492108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts/3_training_neural_networks" />
     <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$standardization.coverage" NAME="standardization Coverage Results" MODIFIED="1751801536454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/data" />
     <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$train_and_save_jax_implementations.coverage" NAME="train_and_save_jax_implementations Coverage Results" MODIFIED="1751816199441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts/2_training_classical" />
+    <SUITE FILE_PATH="coverage/JAX_OSUPR_Projekt$predict_with_lstm.coverage" NAME="predict_with_lstm Coverage Results" MODIFIED="1751918264133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts/4_inference" />
   </component>
 </project>

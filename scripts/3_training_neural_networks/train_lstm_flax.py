@@ -227,7 +227,12 @@ if __name__ == "__main__":
     print(classification_report(y_true_labels, y_pred_labels))
 
     # Save the trained model parameters and the vocabulary
-    joblib.dump(state.params, models_dir / "lstm_params.joblib")
+    print("Converting model parameters to NumPy arrays for saving...")
+    # Use jax.device_get to convert the entire parameter tree to NumPy arrays
+    numpy_params = jax.device_get(state.params)
+    joblib.dump(numpy_params, models_dir / "lstm_params.joblib")
+
+    # The rest of the saving code is fine
     joblib.dump(vocab, models_dir / "lstm_vocab.joblib")
     joblib.dump(label_map, models_dir / "lstm_label_map.joblib")
     print(f"Final model artifacts saved to: {models_dir}")
