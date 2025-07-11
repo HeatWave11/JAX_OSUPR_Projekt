@@ -50,11 +50,11 @@ def text_to_sequence(text, vocab, max_len):
         return seq[:max_len]
 
 # ==============================================================================
-### PART 2: THE LSTM MODEL DEFINITION (ROBUST HIGH-LEVEL VERSION) ###
+### PART 2: A MORE POWERFUL, BIDIRECTIONAL LSTM MODEL (FINAL, ROBUST VERSION) ###
 # ==============================================================================
 
-class LSTMClassifier(nn.Module):
-    """A Flax LSTM model using the high-level nn.RNN wrapper."""
+class BiLSTMClassifier(nn.Module):
+    """A Bidirectional LSTM model for better performance."""
     vocab_size: int
     num_classes: int
     embedding_dim: int = 128
@@ -62,28 +62,40 @@ class LSTMClassifier(nn.Module):
 
     @nn.compact
     def __call__(self, x, train: bool):
-        # 1. Embedding Layer: Turns integer sequences into dense vector sequences.
-        # Shape: (batch_size, seq_len) -> (batch_size, seq_len, embedding_dim)
+        # 1. Embedding Layer
         x = nn.Embed(num_embeddings=self.vocab_size, features=self.embedding_dim)(x)
 
-        # 2. LSTM Layer (High-level and robust way)
-        # We create the LSTM cell...
-        lstm_cell = nn.LSTMCell(features=self.hidden_dim)
-        # ...and wrap it in the nn.RNN module.
-        # This handles the entire scan loop and state initialization for us.
-        # The output `hidden_states` will have the shape (batch_size, seq_len, hidden_dim).
-        hidden_states = nn.RNN(lstm_cell)(x)
+        # 2. Bidirectional LSTM Layer
 
-        # For classification, we only need the output from the VERY LAST time step.
-        # This is equivalent to `last_hidden_state` from our manual scan.
-        x = hidden_states[:, -1, :]
+        # --- FORWARD PASS ---
+        # We define a forward LSTM and run it.
+        # The 'carry_out' will be a tuple (hidden_state, cell_state) from the last time step.
+        forward_lstm = nn.RNN(nn.LSTMCell(features=self.hidden_dim), return_carry=True)
+        forward_carry_out, _ = forward_lstm(x)
+        forward_final_state = forward_carry_out[0] # We only need the hidden state
 
-        # 3. Dropout Layer: Helps prevent overfitting.
+        # --- BACKWARD PASS ---
+        # We define a backward LSTM. To make it run backwards, we first reverse the input sequence.
+        # The `time_major=False` default means the time axis is at index 1.
+        x_reversed = jnp.flip(x, axis=1)
+        backward_lstm = nn.RNN(nn.LSTMCell(features=self.hidden_dim), return_carry=True)
+        backward_carry_out, _ = backward_lstm(x_reversed)
+        backward_final_state = backward_carry_out[0] # Get the final hidden state
+
+        # --- CONCATENATE ---
+        # We combine the final states from both directions. This is the essence of a BiLSTM.
+        # Shape: (batch_size, 2 * hidden_dim)
+        x = jnp.concatenate([forward_final_state, backward_final_state], axis=-1)
+
+        # 3. Dropout Layer
         x = nn.Dropout(rate=0.5, deterministic=not train)(x)
 
-        # 4. Dense Layer: The final classification layer.
+        # 4. Dense Layer
         x = nn.Dense(features=self.num_classes)(x)
+
         return x
+    
+
 
 # ==============================================================================
 ### PART 3: TRAINING AND EVALUATION LOGIC (JAX/FLAX PATTERNS) ###
@@ -147,7 +159,7 @@ if __name__ == "__main__":
     MAX_FEATURES = 15000 # Maximum number of words in our vocabulary
     BATCH_SIZE = 128
     LEARNING_RATE = 1e-3
-    NUM_EPOCHS = 5
+    NUM_EPOCHS = 4
 
     key = jax.random.PRNGKey(0)
 
@@ -172,7 +184,7 @@ if __name__ == "__main__":
     y_valid = np.array(valid_df['Sentiment'].map(label_map).values)
 
     # --- 3. Initialize Model and TrainState ---
-    model = LSTMClassifier(vocab_size=vocab_size, num_classes=len(label_map))
+    model = BiLSTMClassifier(vocab_size=vocab_size, num_classes=len(label_map))
 
     # Create the TrainState object
     key, init_key = jax.random.split(key)
