@@ -1,0 +1,1 @@
+DOne with the help of my friend Gemini 2.5 and especially with the book Deep Learning with Jax by Grigory Sapunov. Way more difficult than tensorflow and I feel the requirement to understand what you're doing is also waaay higher!
